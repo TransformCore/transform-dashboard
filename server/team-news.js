@@ -1,9 +1,9 @@
 const gsheets = require('./gsheets');
 const express = require('express'),
-  router = express.Router()
+  router = express.Router();
 
-router.get('/all', function (req, res) {
-  gsheets.getAllTeamNews().then(function (value) {
+router.get('/all', function(req, res) {
+  gsheets.getAllTeamNews().then(function(value) {
     res.json(value);
   });
 });

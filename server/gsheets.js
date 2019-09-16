@@ -1,9 +1,7 @@
 const fs = require('fs');
 const moment = require('moment');
 const readline = require('readline');
-const {
-  google
-} = require('googleapis');
+const { google } = require('googleapis');
 
 exports.getAllReminders = getAllReminders;
 exports.getAllOverheard = getAllOverheard;
@@ -11,13 +9,13 @@ exports.getAllTeamNews = getAllTeamNews;
 exports.getLatestWifiPassword = getLatestWifiPassword;
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
-const CREDENTIALS = 'server/credentials.json'
+const CREDENTIALS = 'server/credentials.json';
 const TOKEN_PATH = 'server/token.json';
 const SPREADSHEET_ID = '1scieI0CU5Suyze7cg8pV8kzYHJXUKzieUtJhAdOLyIc';
 
 async function getAllContent(func) {
   const content = fs.readFileSync(CREDENTIALS);
-  return await authorize(JSON.parse(content), null).then(async function (value) {
+  return await authorize(JSON.parse(content), null).then(async function(value) {
     return func(value);
   });
 }
@@ -27,15 +25,15 @@ async function getAllReminders() {
 }
 
 async function getAllOverheard() {
-  return getAllContent(retrieveAllOverheard)
+  return getAllContent(retrieveAllOverheard);
 }
 
 async function getAllTeamNews() {
-  return getAllContent(retrieveAllTeamNews)
+  return getAllContent(retrieveAllTeamNews);
 }
 
 async function getLatestWifiPassword() {
-  return getAllContent(retrieveLatestWifiPassword)
+  return getAllContent(retrieveLatestWifiPassword);
 }
 
 const retrieveLatestWifiPassword = async auth => {
@@ -46,9 +44,9 @@ const retrieveLatestWifiPassword = async auth => {
     auth
   });
 
-  return new Promise(function (resolve, reject) {
-
-    sheets.spreadsheets.values.get({
+  return new Promise(function(resolve, reject) {
+    sheets.spreadsheets.values.get(
+      {
         spreadsheetId: SPREADSHEET_ID,
         range: `${SHEET_NAME}`
       },
@@ -61,14 +59,13 @@ const retrieveLatestWifiPassword = async auth => {
 
         if (rows.length) {
           rows.map(row => {
-
             if (row[0] !== 'content') {
-              const startDate = moment(row[1], "DD-MM-YYYY").toDate();
+              const startDate = moment(row[1], 'DD-MM-YYYY').toDate();
 
               if (todaysDate >= startDate) {
                 latestWifiPassword.push({
                   wifiPassword: row[0],
-                  startDate: row[1],
+                  startDate: row[1]
                 });
               }
             }
@@ -90,9 +87,9 @@ const retrieveAllOverheard = async auth => {
     auth
   });
 
-  return new Promise(function (resolve, reject) {
-
-    sheets.spreadsheets.values.get({
+  return new Promise(function(resolve, reject) {
+    sheets.spreadsheets.values.get(
+      {
         spreadsheetId: SPREADSHEET_ID,
         range: `${SHEET_NAME}`
       },
@@ -104,7 +101,7 @@ const retrieveAllOverheard = async auth => {
         if (rows.length) {
           rows.map(row => {
             overheard.push({
-              quote: row[0],
+              quote: row[0]
             });
           });
         } else {
@@ -124,8 +121,9 @@ const retrieveAllTeamNews = async auth => {
     auth
   });
 
-  return new Promise(function (resolve, reject) {
-    sheets.spreadsheets.values.get({
+  return new Promise(function(resolve, reject) {
+    sheets.spreadsheets.values.get(
+      {
         spreadsheetId: SPREADSHEET_ID,
         range: `${SHEET_NAME}`
       },
@@ -137,12 +135,13 @@ const retrieveAllTeamNews = async auth => {
         if (rows.length) {
           rows.map(row => {
             if (row[0] !== 'heading') {
+              const startDateTime = moment(row[2] + row[3], 'DD-MM-YYYY HH:mm').toDate();
+              const endDateTime = moment(row[4] + row[5], 'DD-MM-YYYY HH:mm').toDate();
 
-              const startDateTime = moment((row[2] + row[3]), "DD-MM-YYYY HH:mm").toDate();
-              const endDateTime = moment((row[4] + row[5]), "DD-MM-YYYY HH:mm").toDate();
-
-              if (isPassEndDateOrCurrentDate(endDateTime) &&
-                isInThePastOrCurrentDate(startDateTime)) {
+              if (
+                isPassEndDateOrCurrentDate(endDateTime) &&
+                isInThePastOrCurrentDate(startDateTime)
+              ) {
                 teamNews.push({
                   heading: row[0],
                   content: row[1],
@@ -164,15 +163,14 @@ const retrieveAllTeamNews = async auth => {
 };
 
 const isInThePastOrCurrentDate = date => {
-
   const todaysDate = new Date();
-  return (date <= todaysDate);
-}
+  return date <= todaysDate;
+};
 
 const isPassEndDateOrCurrentDate = date => {
   const todaysDate = new Date();
-  return date >= todaysDate
-}
+  return date >= todaysDate;
+};
 
 const retrieveAllReminders = async auth => {
   const reminders = [];
@@ -182,8 +180,9 @@ const retrieveAllReminders = async auth => {
     auth
   });
 
-  return new Promise(function (resolve, reject) {
-    sheets.spreadsheets.values.get({
+  return new Promise(function(resolve, reject) {
+    sheets.spreadsheets.values.get(
+      {
         spreadsheetId: SPREADSHEET_ID,
         range: `${SHEET_NAME}`
       },
@@ -195,13 +194,13 @@ const retrieveAllReminders = async auth => {
         if (rows.length) {
           rows.map(row => {
             if (row[0] !== 'heading') {
+              const startDateTime = moment(row[2] + row[3], 'DD-MM-YYYY HH:mm').toDate();
+              const endDateTime = moment(row[4] + row[5], 'DD-MM-YYYY HH:mm').toDate();
 
-              const startDateTime = moment((row[2] + row[3]), "DD-MM-YYYY HH:mm").toDate();
-              const endDateTime = moment((row[4] + row[5]), "DD-MM-YYYY HH:mm").toDate();
-
-              if (isPassEndDateOrCurrentDate(endDateTime) &&
-                isInThePastOrCurrentDate(startDateTime)) {
-
+              if (
+                isPassEndDateOrCurrentDate(endDateTime) &&
+                isInThePastOrCurrentDate(startDateTime)
+              ) {
                 reminders.push({
                   heading: row[0],
                   content: row[1],
@@ -217,7 +216,8 @@ const retrieveAllReminders = async auth => {
           console.log('No data found.');
         }
         resolve(reminders);
-      });
+      }
+    );
   });
 };
 
@@ -227,15 +227,11 @@ const retrieveAllReminders = async auth => {
  * @param {Object} credentials The authorization client credentials.
  */
 const authorize = async (credentials, callback) => {
-  const {
-    client_secret,
-    client_id,
-    redirect_uris
-  } = credentials.installed;
+  const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
   // Check if we have previously stored a token.
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     fs.readFile(TOKEN_PATH, (err, token) => {
       if (err) return getNewToken(oAuth2Client, callback);
       oAuth2Client.setCredentials(JSON.parse(token));

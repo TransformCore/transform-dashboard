@@ -1,18 +1,16 @@
 const express = require('express'),
-  router = express.Router()
+  router = express.Router();
 
 const gsheets = require('./gsheets');
 
-router.get('/all', function (req, res) {
-  gsheets.getAllOverheard().then(function (value) {
-    res.json(value)
-  })
+router.get('/all', function(req, res) {
+  gsheets.getAllOverheard().then(function(value) {
+    res.json(value);
+  });
 });
 
 router.get('/current', async (req, res) => {
-
-  gsheets.getAllOverheard().then(function (listOfQuotes) {
-
+  gsheets.getAllOverheard().then(function(listOfQuotes) {
     const quote = listOfQuotes[Math.floor(Math.random() * listOfQuotes.length)];
 
     if (quote == undefined || quote.length === 0) {
@@ -22,7 +20,7 @@ router.get('/current', async (req, res) => {
     } else {
       res.json(quote);
     }
-  })
+  });
 });
 
 module.exports = router;

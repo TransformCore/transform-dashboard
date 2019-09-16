@@ -1,5 +1,5 @@
 const express = require('express'),
-  router = express.Router()
+  router = express.Router();
 
 const fetch = require('node-fetch');
 const APPID = process.env.OPEN_WEATHER_API;
@@ -15,10 +15,10 @@ router.get('/current', async (req, res) => {
   }
 });
 
-router.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+router.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
-module.exports = router
+module.exports = router;
