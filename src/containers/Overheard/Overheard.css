@@ -1,15 +1,15 @@
 .overheard {
-    min-height: 15em;
-    padding: 1em;
-    background: url('overheard.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+  min-height: 15em;
+  padding: 1em;
+  background: url('../../../public/images/overheard.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 p.overheard-text {
-    font-style: italic;
-    font-size: 2.7vh;
-    color: white;
-    text-align: center;
-    border-radius: 1em;
-    background: #ffffff0f;
+  font-style: italic;
+  font-size: 2.7vh;
+  color: white;
+  text-align: center;
+  border-radius: 1em;
+  background: #ffffff0f;
 }

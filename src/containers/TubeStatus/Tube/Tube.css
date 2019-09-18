@@ -1,9 +1,9 @@
 .tube-wrapper {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: white;
-    background-image: url('tube.png');
-    min-height: 16em;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: white;
+  background-image: url("../../../../public/images/tube.png");
+  min-height: 16em;
 }
