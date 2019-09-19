@@ -13,7 +13,8 @@ import RemindersWidgetContainer from './containers/Reminders';
 import WifiPasswordContainer from './containers/WifiPassword';
 
 const Dashboard = () => {
-  const BASE_API_URL = 'http://etdash-env.stujddpjmb.eu-west-2.elasticbeanstalk.com';
+  const BASE_API_URL =
+    'http://etdash-env.stujddpjmb.eu-west-2.elasticbeanstalk.com';
   return (
     <div>
       <Header />
@@ -37,11 +38,15 @@ const Dashboard = () => {
         <Widget>
           <WeatherWidgetContainer href={`${BASE_API_URL}/weather/current`} />
           <Widget>
-            <WifiPasswordContainer href={`${BASE_API_URL}/wifi-passwords/latest`} />
+            <WifiPasswordContainer
+              href={`${BASE_API_URL}/wifi-passwords/latest`}
+            />
           </Widget>
         </Widget>
         <Widget>
-          <OverheardWidgetContainer href={`${BASE_API_URL}/overheard/current`} />
+          <OverheardWidgetContainer
+            href={`${BASE_API_URL}/overheard/current`}
+          />
         </Widget>
       </div>
       <Footer />

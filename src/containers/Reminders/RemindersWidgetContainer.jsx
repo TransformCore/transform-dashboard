@@ -79,7 +79,7 @@ class RemindersWidgetContainer extends Component {
     const { reminders } = this.state;
     if (reminders.length !== 0) {
       return (
-          <ToastContainer autoClose={false}>{this.displayToast()}</ToastContainer>
+        <ToastContainer autoClose={false}>{this.displayToast()}</ToastContainer>
       );
     }
     return (

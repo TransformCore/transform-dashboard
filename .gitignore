@@ -21,3 +21,6 @@ terraform.tfstate.backup
 *.iml
 *.ipr
 /out/
+
+# CSS files
+*.css

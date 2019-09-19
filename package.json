@@ -40,14 +40,16 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.7.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "react-scripts": "0.9.5",
     "sass-loader": "^7.1.0"
   },
   "scripts": {
-    "start": "BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve",
+    "start": "npm run scss | BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve",
+    "scss-dev": "node-sass --watch src/ -o src/",
+    "scss": "node-sass src/ -o src/",
     "react-start": "react-scripts start",
     "docker-start": "npm run serve",
     "build": "react-scripts build",
