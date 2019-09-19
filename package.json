@@ -48,8 +48,8 @@
   },
   "scripts": {
     "start": "npm run scss | BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve",
-    "scss-dev": "node-sass --watch src/ -o src/",
-    "scss": "node-sass src/ -o src/",
+    "scss-dev": "./node_modules/node-sass/bin/node-sass --watch src/ -o src/",
+    "scss": "./node_modules/node-sass/bin/node-sass src/ -o src/",
     "react-start": "react-scripts start",
     "docker-start": "npm run serve",
     "build": "react-scripts build",
