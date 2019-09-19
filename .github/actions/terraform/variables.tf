@@ -19,10 +19,13 @@ variable "az_count" {
 
 variable "image" {
   description = "Docker image to run in the ECS cluster"
+  default     = "445220836204.dkr.ecr.eu-west-1.amazonaws.com/etdashboard:latest"
+
 }
 
 variable "port" {
   description = "Port exposed by the docker image to redirect traffic to"
+  default     = "3000"
 }
 
 variable "desired_count" {
@@ -32,15 +35,13 @@ variable "desired_count" {
 }
 
 variable "cpu" {
-  type        = number
   description = "Fargate instance CPU units to provision (1 vCPU = 1024 CPU units)"
-  default     = 256
+  default     = "256"
 }
 
 variable "memory" {
-  type        = number
   description = "Fargate instance memory to provision (in MiB)"
-  default     = 512
+  default     = "512"
 }
 
 variable "bucket" {
@@ -48,10 +49,25 @@ variable "bucket" {
   type    = string
 }
 
+variable "service_name" {
+  type    = string
+  default = "terraform-et-dash"
+}
+
+variable "alb_name" {
+  type    = string
+  default = "et-dash-alb"
+}
+
+variable "ecs_cluster_name" {
+  type    = string
+  default = "terraform-et-dash"
+}
+
 provider "aws" {
   version    = ">= 1.47.0"
-  access_key = var.access_key
-  secret_key = var.secret_key
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
 
   region = var.region
 }
@@ -59,8 +75,6 @@ provider "aws" {
 terraform {
   backend "s3" {
     encrypt = true
-
-    # Path to write state to.
-    key = "terraform.github.state/dashboard"
+    key     = "terraform.github.state/dashboard"
   }
 }

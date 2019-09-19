@@ -2,16 +2,16 @@ locals {
   container_definitions = <<DEFINITION
 [
   {
-    "cpu": var.cpu
-    "image": var.image,
-    "memory": var.memory,
+    "cpu": ${var.cpu},
+    "image": "${var.image}",
+    "memory": ${var.memory},
     "name": "app",
     "networkMode": "awsvpc",
     "pseudoTerminal": true,
     "portMappings": [
       {
-        "containerPort": var.port,
-        "hostPort": var.port
+        "containerPort": ${var.port},
+        "hostPort": ${var.port}
       }
     ]
   }
@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "app" {
 }
 
 resource "aws_ecs_service" "main" {
-  name = "tf-ecs-service"
+  name = var.service_name
   cluster = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.app.arn
   desired_count = var.desired_count
@@ -40,7 +40,7 @@ resource "aws_ecs_service" "main" {
 
   network_configuration {
     security_groups = [aws_security_group.ecs_tasks.id]
-    subnets = [aws_subnet.private.*.id]
+    subnets = aws_subnet.private.*.id
   }
 
   load_balancer {

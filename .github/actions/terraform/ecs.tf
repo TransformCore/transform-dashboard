@@ -44,7 +44,7 @@ resource "aws_route" "internet_access" {
 resource "aws_eip" "gw" {
   count      = var.az_count
   vpc        = true
-  depends_on = aws_internet_gateway.gw
+  depends_on = [aws_internet_gateway.gw]
 }
 
 resource "aws_nat_gateway" "gw" {
@@ -77,8 +77,8 @@ resource "aws_route_table_association" "private" {
 # Load balancer security group.
 # This is the group you need to edit if you want to restrict access to your application.
 resource "aws_security_group" "ecs_lb" {
-  name        = "ecs-lb"
-  description = "controls access to the ALB"
+  name        = "terraform-ecs-lb"
+  description = "Controls access to the ALB"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -119,13 +119,13 @@ resource "aws_security_group" "ecs_tasks" {
 
 ### Load balancer.
 resource "aws_alb" "main" {
-  name            = "github-actions-deploy"
-  subnets         = [aws_subnet.public.*.id]
+  name            = var.alb_name
+  subnets         = aws_subnet.public.*.id
   security_groups = [aws_security_group.ecs_lb.id]
 }
 
 resource "aws_alb_target_group" "app" {
-  name        = "github-actions-deploy"
+  name        = aws_alb.main.name
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
@@ -146,5 +146,5 @@ resource "aws_alb_listener" "front_end" {
 
 ### ECS
 resource "aws_ecs_cluster" "main" {
-  name = "ecs-cluster"
+  name = var.ecs_cluster_name
 }

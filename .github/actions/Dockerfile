@@ -9,7 +9,7 @@ RUN apk add --no-cache \
 	git \
 	make
 
-COPY ../../terraform /usr/src/terraform
+COPY ./terraform /usr/src/terraform
 COPY Makefile /usr/src
 COPY deploy.sh /usr/local/bin/deploy
 
