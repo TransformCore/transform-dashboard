@@ -35,18 +35,3 @@ action "Push" {
   }
 
 }
-
-action "Deploy to Fargate" {
-  uses = "./.github/actions"
-  needs = ["Push"]
-  env = {
-    AWS_REGION = "eu-west-1"
-    IMAGE = "445220836204.dkr.ecr.eu-west-1.amazonaws.com/etdashboard:latest"
-    PORT = "8081"
-    COUNT = "1"
-    CPU = "256"
-    MEMORY = "512"
-    BUCKET = "et-dash-dev"
-  }
-  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
-}
