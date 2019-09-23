@@ -1,5 +1,4 @@
 $color_grey: #a7a7a7;
-$font_family_1: 'Didact Gothic', sans-serif;
 $background_color: white;
 
 .weather-card {
@@ -11,7 +10,6 @@ $background_color: white;
   animation: appear 500ms ease-out forwards;
 
   h1 {
-    font-family: $font_family_1;
     font-size: 4em;
     text-align: center;
     color: $color_grey;
@@ -21,7 +19,6 @@ $background_color: white;
   }
 
   p {
-    font-family: $font_family_1;
     font-weight: 600;
     font-size: 1em;
     color: $color_grey;
