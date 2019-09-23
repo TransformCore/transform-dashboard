@@ -5,6 +5,22 @@ const express = require('express'),
 
 const gsheets = require('./gsheets');
 
+/**
+ * Replaces all underscores with spaces in order to help the includes search from name.
+ * example: name=some_name  name.includes('Some Name')== false
+ */
+function replaceAllUnderscores(name) {
+  return name.replace(/_/g, ' ');
+}
+
+/**
+ * Helps Remove the size parameter from the url
+ * @returns the original url without the size parameter "=s220"
+ */
+function removeThumbnailSize(thumbnailLink) {
+  return thumbnailLink.slice(0, -5);
+}
+
 router.get('/current', async (req, res) => {
   gsheets.getAllBirthdays().then(function(birthdays) {
     const thisWeeksBirthdays = [];
@@ -30,8 +46,25 @@ router.get('/current', async (req, res) => {
       }
     });
 
-    // TODO: Inject photoUrl into thisWeeksBirthdays by:
-    // querying google drive folder and append attempt to get a photo by name otherwise leave photoUrl: null
+    if (thisWeeksBirthdays.length) {
+      const FOLDER_ID = process.env.GOOGLE_DRIVE_PEOPLE_FOLDER_ID;
+
+      const allFiles = gdrive.retrieveAllFrom(FOLDER_ID);
+
+      //We have at least one birthday this week.
+      //Iterate through all Birthdays and attempt to inject urls
+      thisWeeksBirthdays.forEach(item => {
+        const match = allFiles.find(file =>
+          replaceAllUnderscores(file.name.toLowerCase()).includes(
+            item.name.toLowerCase()
+          )
+        );
+        if (match) {
+          //inject thumbnailLink
+          item.photoUrl = removeThumbnailSize(match.thumbnailLink);
+        }
+      });
+    }
 
     res.json({
       birthdays: thisWeeksBirthdays
