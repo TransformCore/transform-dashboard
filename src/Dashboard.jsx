@@ -70,7 +70,7 @@ class Dashboard extends Component {
             <Widget>
               <GalleryWidgetContainer href={`${BASE_API_URL}/gallery/latest`} />
             </Widget>
-            <Widget heading="">
+            <Widget>
               <ListWidgetContainer
                 href={`${BASE_API_URL}/team-news/all`}
                 heading="Team news"
