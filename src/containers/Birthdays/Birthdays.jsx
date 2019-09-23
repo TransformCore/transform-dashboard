@@ -55,26 +55,29 @@ class Birthdays extends Component {
   async rotateCurrentPerson() {
     const { birthdays, currentPerson } = this.state;
 
-    const found = birthdays.find(bday => bday.name === currentPerson.name);
+    if (currentPerson) {
+      const found = birthdays.find(bday => bday.name === currentPerson.name);
 
-    const currentIndex = birthdays.indexOf(found);
-    if (currentIndex === birthdays.length - 1) {
+      const currentIndex = birthdays.indexOf(found);
+      if (currentIndex === birthdays.length - 1) {
+        return this.setState({
+          currentPerson: {
+            name: birthdays[0].name,
+            date: birthdays[0].date,
+            photoUrl: birthdays[0].photoUrl
+          }
+        });
+      }
+
+      const data = birthdays[currentIndex + 1];
       return this.setState({
         currentPerson: {
-          name: birthdays[0].name,
-          date: birthdays[0].date,
-          photoUrl: birthdays[0].photoUrl
+          name: data.name,
+          date: data.date,
+          photoUrl: data.photoUrl
         }
       });
     }
-    const data = birthdays[currentIndex + 1];
-    return this.setState({
-      currentPerson: {
-        name: data.name,
-        date: data.date,
-        photoUrl: data.photoUrl
-      }
-    });
   }
 
   render() {
