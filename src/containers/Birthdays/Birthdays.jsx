@@ -55,7 +55,7 @@ class Birthdays extends Component {
   async rotateCurrentPerson() {
     const { birthdays, currentPerson } = this.state;
 
-    if (currentPerson) {
+    if (birthdays && birthdays[0].name) {
       const found = birthdays.find(bday => bday.name === currentPerson.name);
 
       const currentIndex = birthdays.indexOf(found);
