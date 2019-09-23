@@ -78,6 +78,13 @@ class Birthdays extends Component {
         }
       });
     }
+    return this.setState({
+      currentPerson: {
+        name: undefined,
+        date: undefined,
+        photoUrl: undefined
+      }
+    });
   }
 
   render() {
