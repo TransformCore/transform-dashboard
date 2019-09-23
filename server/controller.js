@@ -12,5 +12,6 @@ router.use('/team-news', require('./team-news'));
 router.use('/weather', require('./weather'));
 router.use('/wifi-passwords', require('./wifi-passwords'));
 router.use('/transport-manchester', require('./transport-manchester'));
+router.use('/google', require('./google/gallery'));
 
 module.exports = router;
