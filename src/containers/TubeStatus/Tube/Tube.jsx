@@ -4,6 +4,7 @@ import StatusCard from '../StatusCard/StatusCard';
 import './Tube.scss';
 import Widget from '../../../components/Widget';
 import { currentTime } from '../../../helper/DateUtils';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 
 const API_URL = `https://api.tfl.gov.uk/line/mode/tube/status?app_id=37b3cb3e&app_key=2e35b8e85289633355f76896fcbe68a2`;
 
@@ -89,7 +90,11 @@ class Tube extends Component {
     };
 
     if (loading === true) {
-      return <div style={{ fontSize: '50px' }}>Loading</div>;
+      return (
+        <Widget heading={headingProps}>
+          <LoadingSpinner />
+        </Widget>
+      );
     }
     return (
       <Widget heading={headingProps}>

@@ -2,7 +2,7 @@
     rev: 46251c9523506b68419aefdf5ff6ff2fbc4506a4
     hooks:
         -   id: detect-private-key
-        -   id: check-added-large-files
+#        -   id: check-added-large-files
         -   id: check-merge-conflict
         -   id: end-of-file-fixer
         -   id: forbid-new-submodules

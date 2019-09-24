@@ -20,6 +20,10 @@ async function getLatestWifiPassword() {
   return googleAuth.getAllContent(retrieveLatestWifiPassword);
 }
 
+async function getAllBirthdays() {
+  return getAllContent(retrieveAllBirthdays);
+}
+
 const retrieveLatestWifiPassword = async auth => {
   let latestWifiPassword = [];
   const SHEET_NAME = 'wifi-passwords';

@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import LastUpdatedStatus from './LastUpdatedStatus';
 import './Heading.scss';
 
-const displayHeading = (headingText, headingTitleColor, lastUpdatedStatusTime) => {
+const displayHeading = (
+  headingText,
+  headingTitleColor,
+  lastUpdatedStatusTime
+) => {
   if (headingText && lastUpdatedStatusTime) {
     return (
       <div>
@@ -30,7 +34,12 @@ class Heading extends Component {
   }
 
   render() {
-    const { headingTitle, headingTitleColor, backgroundColor, lastUpdatedStatusTime } = this.props;
+    const {
+      headingTitle,
+      headingTitleColor,
+      backgroundColor,
+      lastUpdatedStatusTime
+    } = this.props;
     return (
       <div
         className="widget-heading"

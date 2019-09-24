@@ -63,14 +63,18 @@ class Footer extends Component {
 
     const currentFullDate = (
       <div className="date">
-        {weekday} {dateWithFullMonthName}
+        {weekday}
+        {', '}
+        {dateWithFullMonthName}
       </div>
     );
 
     return (
       <footer className="footer">
         <div className="dateTime">
-          {currentFullDate} . {currentDateState}
+          {currentFullDate}
+          {'.'}
+          {currentDateState}
         </div>
       </footer>
     );

@@ -9,7 +9,10 @@ function GenericWeather({ description, temp, status }) {
     <div className="weather-card">
       <div className={cls} />
       <div className="weather-content">
-        <h1> {Math.floor(temp)}º </h1>
+        <h1> {Math.floor(temp)}
+º
+{' '}
+</h1>
         <p>{description}</p>
       </div>
     </div>

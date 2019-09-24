@@ -10,6 +10,7 @@ import ListWidgetContainer from './containers/List/ListWidgetContainer';
 import Footer from './containers/Footer';
 import OverheardWidgetContainer from './containers/Overheard';
 import WifiPasswordContainer from './containers/WifiPassword';
+import Birthdays from './containers/Birthdays';
 import WeatherWidgetContainer from './containers/Weather/WeatherWidgetContainer';
 import RemindersWidgetContainer from './containers/Reminders';
 import GalleryWidget from './containers/GalleryWidget/GalleryWidget';
@@ -61,7 +62,6 @@ class Dashboard extends Component {
       default:
         locationBasedComponent = null;
     }
-
     return (
       <div>
         <Header />
@@ -91,6 +91,7 @@ class Dashboard extends Component {
               <WeatherWidgetContainer
                 href={`${BASE_API_URL}/weather/current`}
               />
+              <Birthdays href={`${BASE_API_URL}/birthdays/current`} />
             </Widget>
             <Widget>
               <WifiPasswordContainer

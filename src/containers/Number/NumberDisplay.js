@@ -6,7 +6,8 @@ const NumberDisplay = ({ value }) => {
   let max = null;
 
   if (max !== undefined) {
-    max = <span className="max">of {max}</span>;
+    // eslint-disable-next-line react/jsx-one-expression-per-line
+    max = <span className="max">of{max}</span>;
   }
 
   return (
