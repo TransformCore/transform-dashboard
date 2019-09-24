@@ -22,7 +22,7 @@ class NewGalleryWidget extends Component {
 
   componentDidMount() {
     this.interval = setInterval(this.getRandomImageIndex, 30000);
-    this.interval = setInterval(this.getData, 100000);
+    this.interval = setInterval(this.getData, 1000 * 60 * 10);
   }
 
   getData() {
