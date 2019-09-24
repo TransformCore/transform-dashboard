@@ -21,7 +21,7 @@ async function getLatestWifiPassword() {
 }
 
 async function getAllBirthdays() {
-  return getAllContent(retrieveAllBirthdays);
+  return googleAuth.getAllContent(retrieveAllBirthdays);
 }
 
 const retrieveLatestWifiPassword = async auth => {
@@ -221,7 +221,41 @@ const retrieveAllReminders = async auth => {
   });
 };
 
+const retrieveAllBirthdays = async auth => {
+  const birthdays = [];
+  const SHEET_NAME = 'ET_birthdays';
+  const sheets = google.sheets({
+    version: 'v4',
+    auth
+  });
+
+  return new Promise(function(resolve, reject) {
+    sheets.spreadsheets.values.get(
+      {
+        spreadsheetId: SPREADSHEET_ID,
+        range: `${SHEET_NAME}`
+      },
+      (err, res) => {
+        if (err) return console.log(`The API returned an error: ${err}`);
+
+        const rows = res.data.values;
+
+        if (rows.length) {
+          //filter to make sure that only people with consent to "Other communication"
+          rows
+            .filter(row => row[4].toUpperCase() === 'YES')
+            .map(row => birthdays.push({ name: row[0], date: row[1] }));
+        } else {
+          console.log('No Birthdays found.');
+        }
+        resolve(birthdays);
+      }
+    );
+  });
+};
+
 exports.getAllReminders = getAllReminders;
 exports.getAllOverheard = getAllOverheard;
 exports.getAllTeamNews = getAllTeamNews;
 exports.getLatestWifiPassword = getLatestWifiPassword;
+exports.getAllBirthdays = getAllBirthdays;
