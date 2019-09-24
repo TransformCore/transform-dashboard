@@ -12,7 +12,7 @@ import OverheardWidgetContainer from './containers/Overheard';
 import WifiPasswordContainer from './containers/WifiPassword';
 import WeatherWidgetContainer from './containers/Weather/WeatherWidgetContainer';
 import RemindersWidgetContainer from './containers/Reminders';
-import NewGalleryWidget from './containers/GalleryWidget/GalleryWidget';
+import GalleryWidget from './containers/GalleryWidget/GalleryWidget';
 
 const BASE_API_URL =
   'http://localhost:8081';
@@ -68,7 +68,7 @@ class Dashboard extends Component {
         <div className="App">
           <div className="content-wrapper">
             <Widget>
-              <NewGalleryWidget api={`${BASE_API_URL}/google/gallery`} />
+              <GalleryWidget api={`${BASE_API_URL}/google/gallery`} />
             </Widget>
             <Widget heading="">
               <ListWidgetContainer
