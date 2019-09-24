@@ -13,6 +13,6 @@ router.use('/weather', require('./weather'));
 router.use('/wifi-passwords', require('./google/wifi-passwords'));
 router.use('/google', require('./google/gallery'));
 router.use('/transport-manchester', require('./transport-manchester'));
-router.use('/birthdays', require('./birthdays'));
+router.use('/birthdays', require('./google/birthdays'));
 
 module.exports = router;
