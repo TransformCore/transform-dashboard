@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import ListWidget from './ListWidget';
 import './ListWidget.scss';
+import Widget from '../../components/Widget';
 
 class ListWidgetContainer extends Component {
   constructor() {
@@ -50,14 +51,21 @@ class ListWidgetContainer extends Component {
     const { heading, colspan, rowspan } = this.props;
     const { values, loading } = this.state;
 
+    const headingProps = {
+      headingTitle: heading,
+      headingTitleColor: '#43ab9b',
+      headingBackgroundColor: 'white'
+    };
+
     return (
-      <ListWidget
-        heading={heading}
-        colspan={colspan}
-        rowspan={rowspan}
-        listItems={values}
-        loading={loading}
-      />
+      <Widget heading={headingProps}>
+        <ListWidget
+          colspan={colspan}
+          rowspan={rowspan}
+          listItems={values}
+          loading={loading}
+        />
+      </Widget>
     );
   }
 }

@@ -65,19 +65,8 @@ class ListWidget extends Component {
 
     const item = listItems[currentNewsItem];
 
-    const headingProps = {
-      headingTitle: 'Team News',
-      headingTitleColor: '#202944',
-      headingBackgroundColor: 'white'
-    };
-
     return (
       <ListDisplay>
-        <Heading
-          headingTitle={headingProps.headingTitle}
-          headingTitleColor={headingProps.headingTitleColor}
-          backgroundColor={headingProps.headingBackgroundColor}
-        />
         <ListItem
           key={item.label}
           label={item.heading}

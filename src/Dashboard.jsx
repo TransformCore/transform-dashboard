@@ -70,7 +70,7 @@ class Dashboard extends Component {
             <Widget>
               <GalleryWidget api={`${BASE_API_URL}/google/gallery`} />
             </Widget>
-            <Widget heading="">
+            <Widget>
               <ListWidgetContainer
                 href={`${BASE_API_URL}/team-news/all`}
                 heading="Team news"
