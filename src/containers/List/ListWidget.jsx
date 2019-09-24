@@ -18,11 +18,9 @@ class ListWidget extends Component {
     this.rotateNewsItem = this.rotateNewsItem.bind(this);
   }
 
-  componentWillMount() {
-    this.rotateNewsItem();
-  }
-
   componentDidMount() {
+    this.rotateNewsItem();
+    
     const interval = 60 * 100 * 5;
     this.rotateNewsItem().then(_ => {
       this.interval = setInterval(this.rotateNewsItem, interval);
