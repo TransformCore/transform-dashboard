@@ -2,7 +2,7 @@ const express = require('express'),
   router = express.Router();
 
 const fetch = require('node-fetch');
-const APPID = process.env.OPEN_WEATHER_API;
+const APPID = process.env.OPEN_WEATHER_API_KEY;
 const URL = `https://api.openweathermap.org/data/2.5/weather?APPID=${APPID}&q=City of London, GB&units=metric`;
 
 router.get('/current', async (req, res) => {

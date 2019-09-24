@@ -1,41 +1,50 @@
-const fs = require('fs');
 const express = require('express');
-const googleApi = require('./google-api');
+const googleAuth = require('./google-auth');
 const { google } = require('googleapis');
 
-const CREDENTIALS = 'server/google/credentials.json';
+const GALLERY_FOLDER_ID = '1jObvD_7S1buDCvIYHxKwMQl5ky4RSsxn';
 
 const router = express.Router();
 
-function getImageList(auth) {
+const retrieveGalleryImageURLs = async auth => {
   const drive = google.drive({ version: 'v3', auth });
 
-  drive.files.list({
-    pageSize: 10,
-    fields: 'nextPageToken, files(id, name)'
-  }, (err, res) => {
-    if(err)
-      return console.log('The API returned an error: ', err);
+  return new Promise((resolve, reject) => {
+    let galleryImageUris = [];
 
-    const files = res.data.files;
+    drive.files.list({
+      q: `parents='${GALLERY_FOLDER_ID}'`,
+      fields: 'files(name,originalFilename,thumbnailLink)'
+    }, (err, res) => {
+      if(err)
+          return console.log('The API returned an error: ', err);
 
-    if(files.length) {
-      console.log('Files: ');
+        const files = res.data.files;
 
-      files.map((file) => console.log(`${file.name} (${file.id})`));
-    } else {
-      console.log('No files found!');
-    }
+        if(files.length) {
+          files.map(image => {
+            galleryImageUris.push(image.thumbnailLink.slice(0, -5));
+          });
+        }
+
+        resolve(galleryImageUris);
+    });
   });
+};
+
+async function getAllGalleryImages() {
+  return googleAuth.getAllContent(retrieveGalleryImageURLs);
 }
 
-router.get('/all', (req, res) => {
-  fs.readFile(CREDENTIALS, (err, content) => {
-    if(err)
-      return console.log('Error loading client secrets: ', err);
+router.get('/gallery', (req, res) => {
 
-    googleApi.authorize(JSON.parse(content), getImageList);
-  });
+  getAllGalleryImages().then(urls => {
+    if(urls.length > 0) {
+      res.send(urls);
+    } else {
+      res.sendStatus(500);
+    }
+  })
 });
 
 module.exports = router;

@@ -4,7 +4,6 @@ import './styles/App.scss';
 import axios from 'axios';
 import Tube from './containers/TubeStatus/Tube/Tube';
 import Tram from './containers/ManchesterTramStatus/Tram/Tram';
-import GalleryWidgetContainer from './containers/GalleryWidget/GalleryWidgetContainer';
 import Widget from './components/Widget';
 import Header from './containers/Header';
 import ListWidgetContainer from './containers/List/ListWidgetContainer';
@@ -13,9 +12,10 @@ import OverheardWidgetContainer from './containers/Overheard';
 import WifiPasswordContainer from './containers/WifiPassword';
 import WeatherWidgetContainer from './containers/Weather/WeatherWidgetContainer';
 import RemindersWidgetContainer from './containers/Reminders';
+import NewGalleryWidget from './containers/GalleryWidget/GalleryWidget';
 
 const BASE_API_URL =
-  'http://etdash-env.stujddpjmb.eu-west-2.elasticbeanstalk.com';
+  'http://localhost:8081';
 
 async function determineLocationFromCoordinates(coordinates) {
   if (coordinates.latitude && coordinates.longitude) {
@@ -68,7 +68,7 @@ class Dashboard extends Component {
         <div className="App">
           <div className="content-wrapper">
             <Widget>
-              <GalleryWidgetContainer href={`${BASE_API_URL}/gallery/latest`} />
+              <NewGalleryWidget api={`${BASE_API_URL}/google/gallery`} />
             </Widget>
             <Widget heading="">
               <ListWidgetContainer
