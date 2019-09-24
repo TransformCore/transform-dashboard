@@ -19,7 +19,7 @@ class GalleryWidget extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.getRandomImageIndex, 30000);
+    this.interval = setInterval(this.getRandomImageIndex, 7000);
     this.interval = setInterval(this.getData, 1000 * 60 * 10);
   }
 
@@ -34,6 +34,9 @@ class GalleryWidget extends Component {
 
   render() {
     let url = this.state.urls[this.state.currentImage];
+
+    if(url !== undefined)
+      url = url.concat('?key=', process.env.REACT_APP_GOOGLE_DRIVE_API_KEY);
 
     return(
       <div className="image-gallery">
