@@ -21,6 +21,12 @@ body {
   animation: Gradient 15s ease infinite;
 }
 
+.loading-container {
+  height: 100% !important;
+  background: none !important;
+}
+
+
 @-webkit-keyframes Gradient {
   0% {
     background-position: 0% 50%;

@@ -3,7 +3,6 @@ import axios from 'axios';
 import './GalleryWidget.scss';
 
 class GalleryWidget extends Component {
-
   constructor(props) {
     super(props);
 
@@ -15,10 +14,11 @@ class GalleryWidget extends Component {
     this.getData = this.getData.bind(this);
     this.getRandomImageIndex = this.getRandomImageIndex.bind(this);
 
-    this.getData();
   }
 
   componentDidMount() {
+    this.getData();
+
     this.interval = setInterval(this.getRandomImageIndex, 30000);
     this.interval = setInterval(this.getData, 1000 * 60 * 10);
   }

@@ -12,23 +12,25 @@ const retrieveGalleryImageURLs = async auth => {
   return new Promise((resolve, reject) => {
     let galleryImageUris = [];
 
-    drive.files.list({
-      q: `parents='${GALLERY_FOLDER_ID}'`,
-      fields: 'files(name,originalFilename,thumbnailLink)'
-    }, (err, res) => {
-      if(err)
-          return console.log('The API returned an error: ', err);
+    drive.files.list(
+      {
+        q: `parents='${GALLERY_FOLDER_ID}'`,
+        fields: 'files(name,originalFilename,thumbnailLink)'
+      },
+      (err, res) => {
+        if (err) return console.log('The API returned an error: ', err);
 
         const files = res.data.files;
 
-        if(files.length) {
+        if (files.length) {
           files.map(image => {
             galleryImageUris.push(image.thumbnailLink.slice(0, -5));
           });
         }
 
         resolve(galleryImageUris);
-    });
+      }
+    );
   });
 };
 
@@ -37,14 +39,13 @@ async function getAllGalleryImages() {
 }
 
 router.get('/gallery', (req, res) => {
-
   getAllGalleryImages().then(urls => {
-    if(urls.length > 0) {
+    if (urls.length > 0) {
       res.send(urls);
     } else {
       res.sendStatus(500);
     }
-  })
+  });
 });
 
 module.exports = router;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import './GenericWeather.scss';
 
-function GenericWeather({ description, temp, status }) {
+function GenericWeather({ description, temp, status, humidity, windSpeed }) {
   /*
   Helps select which icon to render and defaults to cloudy if the status description is not found
    */
@@ -66,6 +66,7 @@ function GenericWeather({ description, temp, status }) {
   }
 
   const weatherIconComponent = selectWeatherIcon(status);
+
   return (
     <div className="weather-card">
       {weatherIconComponent}
@@ -75,6 +76,16 @@ function GenericWeather({ description, temp, status }) {
           {'º'}
         </h1>
         <p>{description}</p>
+        <p>
+          <b>Humidity: </b>
+          {humidity}
+          {'%'}
+        </p>
+        <p>
+          <b>Wind Speed: </b>
+          {windSpeed}
+          {'m/s'}
+        </p>
       </div>
     </div>
   );
