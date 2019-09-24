@@ -35,6 +35,9 @@ class GalleryWidget extends Component {
   render() {
     let url = this.state.urls[this.state.currentImage];
 
+    if(url !== undefined)
+      url = url.concat('?key=', process.env.REACT_APP_GOOGLE_DRIVE_API_KEY);
+
     return(
       <div className="image-gallery">
         <img src={ url } alt="Gallery"/> { /* TODO: add Alexs' loader widget whenever img fires onError */ }
