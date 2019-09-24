@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './GalleryWidget.scss';
 
-class NewGalleryWidget extends Component {
+class GalleryWidget extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       urls: [],
@@ -14,9 +14,7 @@ class NewGalleryWidget extends Component {
 
     this.getData = this.getData.bind(this);
     this.getRandomImageIndex = this.getRandomImageIndex.bind(this);
-  }
 
-  componentWillMount() {
     this.getData();
   }
 
@@ -39,10 +37,10 @@ class NewGalleryWidget extends Component {
 
     return(
       <div className="image-gallery">
-        <img src={ url } alt="Gallery" />
+        <img src={ url } alt="Gallery"/> { /* TODO: add Alexs' loader widget whenever img fires onError */ }
       </div>
     );
   }
 }
 
-export default NewGalleryWidget;
+export default GalleryWidget;
