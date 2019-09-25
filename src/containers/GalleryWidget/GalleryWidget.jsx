@@ -11,7 +11,7 @@ class GalleryWidget extends Component {
     this.state = {
       loading: true,
       images: [],
-      currentImage: ''
+      currentImage: {}
     };
 
     this.getData = this.getData.bind(this);
@@ -33,18 +33,21 @@ class GalleryWidget extends Component {
     });
   }
 
-  rotateCurrentImage() {
+  async rotateCurrentImage() {
     const { images, currentImage } = this.state;
 
     if (images.length) {
       const currentIndex = images.indexOf(currentImage);
 
-      if (currentIndex !== images.length - 1) {
-        this.setState({ currentImage: images[currentIndex + 1].thumbnailLink });
+      if (currentIndex === images.length - 1) {
+        // Reset to the first image
+        return this.setState({ currentImage: images[0] });
       }
-      // Reset to the first image
-      this.setState({ currentImage: images[0].thumbnailLink });
+      return this.setState({ currentImage: images[currentIndex + 1] });
     }
+    return this.setState({
+      loading: true
+    });
   }
 
   render() {
@@ -60,7 +63,7 @@ class GalleryWidget extends Component {
 
     return (
       <div className="image-gallery">
-        <img src={currentImage} alt="Gallery" />
+        <img src={currentImage.thumbnailLink} alt="Gallery" />
       </div>
     );
   }
