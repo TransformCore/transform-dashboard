@@ -29,6 +29,7 @@ class GalleryWidget extends Component {
 
   getRandomImageIndex() {
     let index = Math.floor(Math.random() * this.state.urls.length);
+    
     this.setState({ currentImage: index });
   }
 

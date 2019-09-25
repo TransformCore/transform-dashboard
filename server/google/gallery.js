@@ -6,6 +6,8 @@ const GALLERY_FOLDER_ID = '1jObvD_7S1buDCvIYHxKwMQl5ky4RSsxn';
 
 const router = express.Router();
 
+let urlCache = [];
+
 const retrieveGalleryImageURLs = async auth => {
   const drive = google.drive({ version: 'v3', auth });
 
@@ -36,15 +38,27 @@ async function getAllGalleryImages() {
   return googleAuth.getAllContent(retrieveGalleryImageURLs);
 }
 
+function cacheURLs() {
+  console.log('Caching URLS');
+  getAllGalleryImages().then(urls => {
+    urlCache = urls;
+  });
+}
+
+function setupCache() {
+  cacheURLs();
+  setInterval(cacheURLs, 1000 * 60 * 60);
+}
+
+setupCache();
+
 router.get('/gallery', (req, res) => {
 
-  getAllGalleryImages().then(urls => {
-    if(urls.length > 0) {
-      res.send(urls);
-    } else {
-      res.sendStatus(500);
-    }
-  })
+  if(urlCache.length > 0) {
+    res.send(urlCache);
+  } else {
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;
