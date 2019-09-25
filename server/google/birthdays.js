@@ -23,6 +23,7 @@ async function getAllBirthdayImages() {
  * @param allFiles the files array retrieved from google drive containing all URLs
  */
 function injectPhotoUrls(thisWeeksBirthdays, allFiles) {
+  const birthdays = [];
   if (allFiles.length) {
     //We have at least one birthday this week.
     //Iterate through all Birthdays and attempt to inject urls
@@ -36,15 +37,28 @@ function injectPhotoUrls(thisWeeksBirthdays, allFiles) {
       });
       if (match) {
         //inject thumbnailLink
-        item.photoUrl = utils.removeThumbnailSize(match.thumbnailLink);
+        birthdays.push({
+          name: item.name,
+          date: item.date,
+          photoUrl: utils.removeThumbnailSize(match.thumbnailLink)
+        });
+      } else {
+        birthdays.push({
+          name: item.name,
+          date: item.date,
+          photoUrl: null
+        });
       }
     });
+    return birthdays;
   }
+
+  return thisWeeksBirthdays;
 }
 
 router.get('/current', async (req, res) => {
   gsheets.getAllBirthdays().then(function(birthdays) {
-    const thisWeeksBirthdays = [];
+    let thisWeeksBirthdays = [];
 
     birthdays.forEach(b => {
       if (b.date && b.date !== '#N/A') {
@@ -70,15 +84,19 @@ router.get('/current', async (req, res) => {
     if (thisWeeksBirthdays.length) {
       try {
         getAllBirthdayImages().then(files => {
-          injectPhotoUrls(thisWeeksBirthdays, files);
+          const updatedBirthdays = injectPhotoUrls(thisWeeksBirthdays, files);
+          return res.json({
+            birthdays: updatedBirthdays
+          });
         });
       } catch (e) {
         console.error('Error fetching files from Google folder');
       }
+    } else {
+      return res.json({
+        birthdays: thisWeeksBirthdays
+      });
     }
-    res.json({
-      birthdays: thisWeeksBirthdays
-    });
   });
 });
 
