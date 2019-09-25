@@ -1,4 +1,3 @@
-require('dotenv').config();
 const utils = require('./helper/utils');
 
 const googleUtils = require('./helper/google-utils');

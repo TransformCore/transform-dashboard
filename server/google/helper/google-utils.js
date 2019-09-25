@@ -14,7 +14,7 @@ async function retrieveAllImagesFromFolder(folderId, auth) {
       (err, res) => {
         if (err) {
           console.log('The API returned an error: ', err);
-          return;
+          return reject('Could not retrieve images');
         }
 
         const files = res.data.files;
