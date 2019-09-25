@@ -1,24 +1,45 @@
+require('dotenv').config();
+
 const moment = require('moment');
 
 const express = require('express'),
   router = express.Router();
 
-const gsheets = require('./gsheets');
+const gsheets = require('./service/gsheets');
+const googleUtils = require('./helper/google-utils');
+const googleAuth = require('./service/google-auth');
+const utils = require('./helper/utils');
 
-/**
- * Replaces all underscores with spaces in order to help the includes search from name.
- * example: name=some_name  name.includes('Some Name')== false
- */
-function replaceAllUnderscores(name) {
-  return name.replace(/_/g, ' ');
+const PEOPLE_FOLDER_ID = process.env.GOOGLE_DRIVE_PEOPLE_FOLDER_ID;
+
+async function getAllBirthdayImages() {
+  const auth = await googleAuth.getAuth();
+  return await googleUtils.retrieveAllImagesFromFolder(PEOPLE_FOLDER_ID, auth);
 }
 
 /**
- * Helps Remove the size parameter from the url
- * @returns the original url without the size parameter "=s220"
+ * Iterates through all birthdays and attempts to inject all photoUrls.
+ * @param thisWeeksBirthdays the birthdays object
+ * @param allFiles the files array retrieved from google drive containing all URLs
  */
-function removeThumbnailSize(thumbnailLink) {
-  return thumbnailLink.slice(0, -5);
+function injectPhotoUrls(thisWeeksBirthdays, allFiles) {
+  if (allFiles.length) {
+    //We have at least one birthday this week.
+    //Iterate through all Birthdays and attempt to inject urls
+    thisWeeksBirthdays.forEach(item => {
+      const match = allFiles.find(file => {
+        const name = utils.replaceAllUnderscores(file.name.toLowerCase());
+
+        if (name.includes(item.name.toLowerCase())) {
+          return file;
+        }
+      });
+      if (match) {
+        //inject thumbnailLink
+        item.photoUrl = utils.removeThumbnailSize(match.thumbnailLink);
+      }
+    });
+  }
 }
 
 router.get('/current', async (req, res) => {
@@ -47,25 +68,14 @@ router.get('/current', async (req, res) => {
     });
 
     if (thisWeeksBirthdays.length) {
-      const FOLDER_ID = process.env.GOOGLE_DRIVE_PEOPLE_FOLDER_ID;
-
-      const allFiles = gdrive.retrieveAllFrom(FOLDER_ID);
-
-      //We have at least one birthday this week.
-      //Iterate through all Birthdays and attempt to inject urls
-      thisWeeksBirthdays.forEach(item => {
-        const match = allFiles.find(file =>
-          replaceAllUnderscores(file.name.toLowerCase()).includes(
-            item.name.toLowerCase()
-          )
-        );
-        if (match) {
-          //inject thumbnailLink
-          item.photoUrl = removeThumbnailSize(match.thumbnailLink);
-        }
-      });
+      try {
+        getAllBirthdayImages().then(files => {
+          injectPhotoUrls(thisWeeksBirthdays, files);
+        });
+      } catch (e) {
+        console.error('Error fetching files from Google folder');
+      }
     }
-
     res.json({
       birthdays: thisWeeksBirthdays
     });

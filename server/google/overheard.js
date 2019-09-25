@@ -1,7 +1,7 @@
 const express = require('express'),
   router = express.Router();
 
-const gsheets = require('./gsheets');
+const gsheets = require('./service/gsheets');
 
 router.get('/all', function(req, res) {
   gsheets.getAllOverheard().then(function(value) {

@@ -1,46 +1,66 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './GalleryWidget.scss';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { tenMinutes, tenSeconds } from '../../helper/DateUtils';
 
 class GalleryWidget extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      urls: [],
-      currentImage: 0
+      loading: true,
+      images: [],
+      currentImage: ''
     };
 
     this.getData = this.getData.bind(this);
-    this.getRandomImageIndex = this.getRandomImageIndex.bind(this);
-
+    this.rotateCurrentImage = this.rotateCurrentImage.bind(this);
   }
 
   componentDidMount() {
     this.getData();
 
-    this.interval = setInterval(this.getRandomImageIndex, 30000);
-    this.interval = setInterval(this.getData, 1000 * 60 * 10);
+    this.interval = setInterval(this.getData, tenMinutes());
+    this.timer = setInterval(this.rotateCurrentImage, tenSeconds());
   }
 
   getData() {
-    axios.get(this.props.api).then((urls) => this.setState({ urls : urls.data }));
+    axios.get(this.props.api).then(images => {
+      this.setState({ loading: false, images: images.data });
+      // Force Rotate
+      this.rotateCurrentImage();
+    });
   }
 
-  getRandomImageIndex() {
-    let index = Math.floor(Math.random() * this.state.urls.length);
-    this.setState({ currentImage: index });
+  rotateCurrentImage() {
+    const { images, currentImage } = this.state;
+
+    if (images.length) {
+      const currentIndex = images.indexOf(currentImage);
+
+      if (currentIndex !== images.length - 1) {
+        this.setState({ currentImage: images[currentIndex + 1].thumbnailLink });
+      }
+      // Reset to the first image
+      this.setState({ currentImage: images[0].thumbnailLink });
+    }
   }
 
   render() {
-    let url = this.state.urls[this.state.currentImage];
+    const { loading, currentImage } = this.state;
 
-    if(url !== undefined)
-      url = url.concat('?key=', process.env.REACT_APP_GOOGLE_DRIVE_API_KEY);
+    if (loading === true) {
+      return (
+        <div className="image-gallery">
+          <LoadingSpinner />
+        </div>
+      );
+    }
 
-    return(
+    return (
       <div className="image-gallery">
-        <img src={ url } alt="Gallery"/> { /* TODO: add Alexs' loader widget whenever img fires onError */ }
+        <img src={currentImage} alt="Gallery" />
       </div>
     );
   }
