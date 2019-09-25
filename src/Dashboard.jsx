@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './styles/App.scss';
+import './index.scss';
 import axios from 'axios';
 import Tube from './containers/TubeStatus/Tube/Tube';
 import Tram from './containers/ManchesterTramStatus/Tram/Tram';
@@ -14,9 +15,9 @@ import Birthdays from './containers/Birthdays';
 import WeatherWidgetContainer from './containers/Weather/WeatherWidgetContainer';
 import RemindersWidgetContainer from './containers/Reminders';
 import GalleryWidget from './containers/GalleryWidget/GalleryWidget';
+import LoadingSpinner from './components/LoadingSpinner';
 
-const BASE_API_URL =
-  'http://localhost:8081';
+const BASE_API_URL = 'http://localhost:8081';
 
 async function determineLocationFromCoordinates(coordinates) {
   if (coordinates.latitude && coordinates.longitude) {
@@ -49,61 +50,76 @@ class Dashboard extends Component {
   }
 
   render() {
-    let locationBasedComponent;
-    switch (this.state.location) {
-      case 'London':
-        locationBasedComponent = <Tube />;
-        break;
-      case 'Manchester':
-        locationBasedComponent = (
-          <Tram href={`${BASE_API_URL}/transport-manchester/status`} />
-        );
-        break;
-      default:
-        locationBasedComponent = null;
-    }
-    return (
-      <div>
-        <Header />
-        <div className="App">
-          <div className="content-wrapper">
-            <Widget>
-              <GalleryWidget api={`${BASE_API_URL}/google/gallery`} />
-            </Widget>
-            <Widget>
-              <ListWidgetContainer
-                href={`${BASE_API_URL}/team-news/all`}
-                heading="Team news"
-                rowspan={3}
-              />
-            </Widget>
-            <Widget>
-              <OverheardWidgetContainer
-                href={`${BASE_API_URL}/overheard/current`}
-              />
-            </Widget>
-            <Widget heading="">
-              <RemindersWidgetContainer
-                href={`${BASE_API_URL}/reminders/all`}
-              />
-            </Widget>
-            <Widget>
-              <WeatherWidgetContainer
-                href={`${BASE_API_URL}/weather/current`}
-              />
-              <Birthdays href={`${BASE_API_URL}/birthdays/current`} />
-            </Widget>
-            <Widget>
-              <WifiPasswordContainer
-                href={`${BASE_API_URL}/wifi-passwords/latest`}
-              />
-            </Widget>
+    if (this.state.location) {
+      let locationBasedComponent;
+      const currentCity = this.state.location;
+      switch (currentCity) {
+        case 'London':
+          locationBasedComponent = <Tube />;
+          break;
+        case 'Manchester':
+          locationBasedComponent = (
+            <Tram href={`${BASE_API_URL}/transport-manchester/status`} />
+          );
+          break;
+        default:
+          locationBasedComponent = null;
+      }
+      return (
+        <div>
+          <Header />
+          <div className="App">
+            <div className="content-wrapper">
+              <Widget>
+                <GalleryWidget api={`${BASE_API_URL}/google/gallery`} />
+              </Widget>
+              <Widget heading="">
+                <ListWidgetContainer
+                  href={`${BASE_API_URL}/team-news/all`}
+                  heading="Team news"
+                  rowspan={3}
+                />
+              </Widget>
+              <Widget>
+                <OverheardWidgetContainer
+                  href={`${BASE_API_URL}/overheard/current`}
+                />
+              </Widget>
+              <Widget heading="">
+                <RemindersWidgetContainer
+                  href={`${BASE_API_URL}/reminders/all`}
+                />
+              </Widget>
+              <Widget>
+                <WeatherWidgetContainer
+                  href={`${BASE_API_URL}/weather/current`}
+                  city={currentCity}
+                />
+                <Birthdays href={`${BASE_API_URL}/birthdays/current`} />
+              </Widget>
+              <Widget>
+                <WifiPasswordContainer
+                  href={`${BASE_API_URL}/wifi-passwords/latest`}
+                />
+              </Widget>
+            </div>
+            <div className="side">
+              <Widget>{locationBasedComponent}</Widget>
+            </div>
           </div>
-          <div className="side">
-            <Widget>{locationBasedComponent}</Widget>
-          </div>
+          <Footer />
         </div>
-        <Footer />
+      );
+    }
+
+    /**
+     * Prevent's Loading the app if we haven't yet located the city.
+     */
+    return (
+      <div className="loading-container">
+        <Widget>
+          <LoadingSpinner />
+        </Widget>
       </div>
     );
   }

@@ -7,7 +7,9 @@ class OpenWeather extends React.Component {
     super(props);
     this.state = {
       name: null,
-      temp: null
+      temp: null,
+      humidity: null,
+      windSpeed: null
     };
 
     this.getData = this.getData.bind(this);
@@ -23,20 +25,24 @@ class OpenWeather extends React.Component {
   }
 
   async getData() {
-    const { apiLocation } = this.props;
-    axios.get(apiLocation).then(response => {
-      const { data } = response;
-      this.setState({
-        name: data.name,
-        temp: data.main.temp,
-        description: data.weather[0].description,
-        status: data.weather[0].main
+    const { apiLocation, city } = this.props;
+    if (city) {
+      axios.get(`${apiLocation}/${city}`).then(response => {
+        const { data } = response;
+        this.setState({
+          name: data.name,
+          temp: data.main.temp,
+          humidity: data.main.humidity,
+          windSpeed: data.wind.speed,
+          description: data.weather[0].description,
+          status: data.weather[0].main
+        });
       });
-    });
+    }
   }
 
   render() {
-    const { name, temp, description, status } = this.state;
+    const { name, temp, description, status, humidity, windSpeed } = this.state;
 
     return (
       <GenericWeather
@@ -44,13 +50,11 @@ class OpenWeather extends React.Component {
         temp={temp}
         description={description}
         status={status}
+        humidity={humidity}
+        windSpeed={windSpeed}
       />
     );
   }
 }
-
-OpenWeather.defaultProps = {
-  city: 'London'
-};
 
 export default OpenWeather;

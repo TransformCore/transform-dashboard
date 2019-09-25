@@ -34,6 +34,7 @@ class Birthdays extends Component {
         loading: false,
         birthdays: response.data.birthdays
       });
+      this.rotateCurrentPerson();
     });
   }
 

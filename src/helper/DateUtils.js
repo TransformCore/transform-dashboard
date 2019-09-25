@@ -6,16 +6,25 @@ export const currentTime = currentDate => {
   return `${currentDate.getHours()}:${pad(currentDate.getMinutes())}`;
 };
 
-export const twelveHours = () => {
-  const oneMinute = 60000;
-  const oneHour = oneMinute * 60;
-  return oneHour * 12;
+export const oneMinute = () => {
+  return 60000;
 };
-
 export const oneSecond = () => {
   return 1000;
 };
-
 export const tenSeconds = () => {
   return 10000;
+};
+
+export const thirtySeconds = () => {
+  return tenSeconds() * 3;
+};
+
+export const tenMinutes = () => {
+  return oneMinute() * 10;
+};
+
+export const twelveHours = () => {
+  const oneHour = oneMinute() * 60;
+  return oneHour * 12;
 };

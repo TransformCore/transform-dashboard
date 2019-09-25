@@ -39,7 +39,9 @@ const retrieveLatestWifiPassword = async auth => {
         range: `${SHEET_NAME}`
       },
       (err, res) => {
-        if (err) return console.log(`The API returned an error: ${err}`);
+        if (err) {
+          return console.log(`The API returned an error: ${err}`);
+        }
 
         const rows = res.data.values;
 
@@ -82,7 +84,9 @@ const retrieveAllOverheard = async auth => {
         range: `${SHEET_NAME}`
       },
       (err, res) => {
-        if (err) return console.log(`The API returned an error: ${err}`);
+        if (err) {
+          return console.log(`The API returned an error: ${err}`);
+        }
 
         const rows = res.data.values;
 
@@ -116,7 +120,9 @@ const retrieveAllTeamNews = async auth => {
         range: `${SHEET_NAME}`
       },
       (err, res) => {
-        if (err) return console.log(`The API returned an error: ${err}`);
+        if (err) {
+          return console.log(`The API returned an error: ${err}`);
+        }
 
         const rows = res.data.values;
 
@@ -181,7 +187,9 @@ const retrieveAllReminders = async auth => {
         range: `${SHEET_NAME}`
       },
       (err, res) => {
-        if (err) return console.log(`The API returned an error: ${err}`);
+        if (err) {
+          return console.log(`The API returned an error: ${err}`);
+        }
 
         const rows = res.data.values;
 
@@ -236,7 +244,9 @@ const retrieveAllBirthdays = async auth => {
         range: `${SHEET_NAME}`
       },
       (err, res) => {
-        if (err) return console.log(`The API returned an error: ${err}`);
+        if (err) {
+          return console.log(`The API returned an error: ${err}`);
+        }
 
         const rows = res.data.values;
 

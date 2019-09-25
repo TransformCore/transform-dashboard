@@ -1,4 +1,4 @@
-const gsheets = require('./gsheets');
+const gsheets = require('./service/gsheets');
 const express = require('express'),
   router = express.Router();
 

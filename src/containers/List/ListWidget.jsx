@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import ListDisplay from './ListDisplay';
 import ListItem from './ListItem';
 import './ListWidget.scss';
-import Heading from '../../components/Heading';
 
 class ListWidget extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class ListWidget extends Component {
 
   componentDidMount() {
     this.rotateNewsItem();
-    
+
     const interval = 60 * 100 * 5;
     this.rotateNewsItem().then(_ => {
       this.interval = setInterval(this.rotateNewsItem, interval);
@@ -29,8 +28,7 @@ class ListWidget extends Component {
 
   sortListItems() {
     const { listItems } = this.props;
-    const sortedItems = listItems.slice();
-    return sortedItems;
+    return listItems.slice();
   }
 
   async rotateNewsItem() {
