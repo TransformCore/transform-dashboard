@@ -6,7 +6,7 @@ import Widget from '../../../components/Widget';
 import { currentTime } from '../../../helper/DateUtils';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 
-const API_URL = `https://api.tfl.gov.uk/line/mode/tube/status?app_id=37b3cb3e&app_key=2e35b8e85289633355f76896fcbe68a2`;
+const API_URL = `https://api.tfl.gov.uk/line/mode/tube/status`;
 
 const nearbyLines = [
   'bakerloo',
@@ -46,23 +46,28 @@ class Tube extends Component {
 
   async getData() {
     axios
-      .get(API_URL)
-      .then(response => {
-        const tubeLines = response.data.filter(item =>
-          nearbyLines.includes(item.name.toLowerCase())
-        );
-        const lastUpdateTime = currentTime(new Date());
-        if (tubeLines) {
-          this.setState({
-            loading: false,
-            tubeLines,
-            lastUpdatedTime: `TUBE STATUS @ ${lastUpdateTime}`
-          });
-        }
-      })
-      .catch(err => {
-        console.error('Error fetching Tube status data', err);
-      });
+    .get(API_URL, {
+      params: {
+        app_id: process.env.TFL_APP_ID,
+        app_key: process.env.TFL_APP_KEY
+      }
+    })
+    .then(response => {
+      const tubeLines = response.data.filter(item =>
+        nearbyLines.includes(item.name.toLowerCase())
+      );
+      const lastUpdateTime = currentTime(new Date());
+      if (tubeLines) {
+        this.setState({
+          loading: false,
+          tubeLines,
+          lastUpdatedTime: `TUBE STATUS @ ${lastUpdateTime}`
+        });
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching Tube status data', err);
+    });
   }
 
   showStatusCard = data => {

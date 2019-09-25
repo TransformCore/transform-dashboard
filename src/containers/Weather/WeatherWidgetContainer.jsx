@@ -1,8 +1,8 @@
 import React from 'react';
 import OpenWeather from './OpenWeather';
 
-const WeatherWidgetContainer = ({ href, heightSize }) => {
-  return <OpenWeather apiLocation={href} />;
+const WeatherWidgetContainer = ({ href, city }) => {
+  return <OpenWeather apiLocation={href} city={city} />;
 };
 
 export default WeatherWidgetContainer;

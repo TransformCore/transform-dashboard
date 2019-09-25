@@ -1,14 +1,23 @@
 const express = require('express'),
   router = express.Router();
-
 const fetch = require('node-fetch');
-const APPID = process.env.OPEN_WEATHER_API;
-const URL = `https://api.openweathermap.org/data/2.5/weather?APPID=${APPID}&q=City of London, GB&units=metric`;
 
-router.get('/current', async (req, res) => {
+const BASE_URL = `https://api.openweathermap.org/data/2.5/weather`;
+const apiKey = process.env.OPEN_WEATHER_API_KEY;
+
+router.get('/current/:city', async (req, res) => {
   try {
-    const weatherResponse = await fetch(URL).then(res => res.json());
+    const city = req.params.city;
 
+    const params = {
+      APPID: apiKey,
+      q: city,
+      units: 'metric'
+    };
+    const urlParams = new URLSearchParams(Object.entries(params));
+    const weatherResponse = await fetch(BASE_URL + '?' + urlParams).then(res =>
+      res.json()
+    );
     res.json(weatherResponse);
   } catch (e) {
     console.error(e, 'failed to retrieve weather data');
