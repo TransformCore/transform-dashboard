@@ -39,7 +39,6 @@ async function getAllGalleryImages() {
 }
 
 function cacheURLs() {
-  console.log('Caching URLS');
   getAllGalleryImages().then(urls => {
     urlCache = urls;
   });
