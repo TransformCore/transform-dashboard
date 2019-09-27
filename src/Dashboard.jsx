@@ -17,7 +17,7 @@ import RemindersWidgetContainer from './containers/Reminders';
 import GalleryWidget from './containers/GalleryWidget/GalleryWidget';
 import LoadingSpinner from './components/LoadingSpinner';
 
-const BASE_API_URL = 'http://localhost:8081';
+const BASE_API_URL = 'http://ec2-35-177-203-232.eu-west-2.compute.amazonaws.com:8081';
 
 async function determineLocationFromCoordinates(coordinates) {
   if (coordinates.latitude && coordinates.longitude) {
