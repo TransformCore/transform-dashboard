@@ -50,9 +50,9 @@ class Dashboard extends Component {
   }
 
   render() {
-    if (true) {
+    if (this.state.location) {
       let locationBasedComponent;
-      const currentCity = 'London';
+      const currentCity = this.state.location;
       switch (currentCity) {
         case 'London':
           locationBasedComponent = <Tube />;
