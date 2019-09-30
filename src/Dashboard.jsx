@@ -17,7 +17,7 @@ import RemindersWidgetContainer from './containers/Reminders';
 import GalleryWidget from './containers/GalleryWidget/GalleryWidget';
 import LoadingSpinner from './components/LoadingSpinner';
 
-const BASE_API_URL = 'http://ec2-35-177-203-232.eu-west-2.compute.amazonaws.com:8081';
+const BASE_API_URL = 'http://3.10.11.5:8081';
 
 async function determineLocationFromCoordinates(coordinates) {
   if (coordinates.latitude && coordinates.longitude) {
@@ -47,12 +47,14 @@ class Dashboard extends Component {
         this.setState({ location: city });
       });
     });
+
+	  this.setState({ location: 'London' }); //BUG FIX: need to put this behind https for geolocation to work.
   }
 
   render() {
-    if (true) {
+    if (this.state.location) {
       let locationBasedComponent;
-      const currentCity = 'London';
+      const currentCity = this.state.location;
       switch (currentCity) {
         case 'London':
           locationBasedComponent = <Tube />;
