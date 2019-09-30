@@ -1,0 +1,88 @@
+
+> transform-dashboard@2.0.0 start /home/ec2-user/transform-dashboard
+> BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve
+
+
+> transform-dashboard@2.0.0 serve /home/ec2-user/transform-dashboard
+> node server/server.js
+
+sh: line 1: 32009 Done(1)                 BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start
+     32010 Killed                  | npm run serve
+npm ERR! code ELIFECYCLE
+npm ERR! errno 137
+npm ERR! transform-dashboard@2.0.0 start: `BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve`
+npm ERR! Exit status 137
+npm ERR! 
+npm ERR! Failed at the transform-dashboard@2.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/ec2-user/.npm/_logs/2019-09-27T09_56_10_059Z-debug.log
+
+> transform-dashboard@2.0.0 start /home/ec2-user/transform-dashboard
+> BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve
+
+
+> transform-dashboard@2.0.0 serve /home/ec2-user/transform-dashboard
+> node server/server.js
+
+sh: line 1: 32152 Done(1)                 BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start
+     32153 Killed                  | npm run serve
+npm ERR! code ELIFECYCLE
+npm ERR! errno 137
+npm ERR! transform-dashboard@2.0.0 start: `BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve`
+npm ERR! Exit status 137
+npm ERR! 
+npm ERR! Failed at the transform-dashboard@2.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/ec2-user/.npm/_logs/2019-09-27T10_00_45_166Z-debug.log
+
+> transform-dashboard@2.0.0 start /home/ec2-user/transform-dashboard
+> BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve
+
+
+> transform-dashboard@2.0.0 serve /home/ec2-user/transform-dashboard
+> node server/server.js
+
+sh: line 1: 32276 Done(1)                 BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start
+     32277 Killed                  | npm run serve
+npm ERR! code ELIFECYCLE
+npm ERR! errno 137
+npm ERR! transform-dashboard@2.0.0 start: `BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve`
+npm ERR! Exit status 137
+npm ERR! 
+npm ERR! Failed at the transform-dashboard@2.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/ec2-user/.npm/_logs/2019-09-27T10_08_52_799Z-debug.log
+
+> transform-dashboard@2.0.0 start /home/ec2-user/transform-dashboard
+> BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve
+
+
+> transform-dashboard@2.0.0 serve /home/ec2-user/transform-dashboard
+> node server/server.js
+
+sh: line 1: 32764 Done(1)                 BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start
+     32765 Killed                  | npm run serve
+npm ERR! code ELIFECYCLE
+npm ERR! errno 137
+npm ERR! transform-dashboard@2.0.0 start: `BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve`
+npm ERR! Exit status 137
+npm ERR! 
+npm ERR! Failed at the transform-dashboard@2.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/ec2-user/.npm/_logs/2019-09-30T08_28_25_340Z-debug.log
+
+> transform-dashboard@2.0.0 start /home/ec2-user/transform-dashboard
+> BASE_API_URL=http://et-dash-dev.eu-west-2.elasticbeanstalk.com react-scripts start | npm run serve
+
+
+> transform-dashboard@2.0.0 serve /home/ec2-user/transform-dashboard
+> node server/server.js
+

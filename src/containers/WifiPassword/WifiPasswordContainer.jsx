@@ -51,7 +51,7 @@ class WifiPasswordContainer extends Component {
     return (
       <Widget heading={headingProps}>
         <div className="wifi-password">
-          <p className="wifi-password-text"> {wifiPassword} </p>
+          <p className="wifi-password-text"> Tr0p1calSun </p>
           <WifiLogo />
         </div>
       </Widget>

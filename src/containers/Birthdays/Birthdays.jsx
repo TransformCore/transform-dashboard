@@ -56,7 +56,7 @@ class Birthdays extends Component {
   async rotateCurrentPerson() {
     const { birthdays, currentPerson } = this.state;
 
-    if (birthdays && birthdays[0].name) {
+    if (birthdays.length && birthdays[0].name) {
       const found = birthdays.find(bday => bday.name === currentPerson.name);
 
       const currentIndex = birthdays.indexOf(found);
@@ -91,7 +91,7 @@ class Birthdays extends Component {
   render() {
     const { loading, currentPerson } = this.state;
     const headingProps = {
-      headingTitle: "This Weeks's Birthdays",
+      headingTitle: "This Weeks Birthdays",
       headingTitleColor: '#6dc5e8',
       headingBackgroundColor: 'white'
     };

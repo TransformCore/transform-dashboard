@@ -17,7 +17,7 @@ import RemindersWidgetContainer from './containers/Reminders';
 import GalleryWidget from './containers/GalleryWidget/GalleryWidget';
 import LoadingSpinner from './components/LoadingSpinner';
 
-const BASE_API_URL = 'http://localhost:8081';
+const BASE_API_URL = 'http://3.10.11.5:8081';
 
 async function determineLocationFromCoordinates(coordinates) {
   if (coordinates.latitude && coordinates.longitude) {
@@ -47,6 +47,8 @@ class Dashboard extends Component {
         this.setState({ location: city });
       });
     });
+
+	  this.setState({ location: 'London' }); //BUG FIX: need to put this behind https for geolocation to work.
   }
 
   render() {

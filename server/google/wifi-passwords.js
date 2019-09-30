@@ -4,13 +4,13 @@ const express = require('express'),
 
 router.get('/latest', function(req, res) {
   gsheets.getLatestWifiPassword().then(function(value) {
-    res.json(value);
+    res.json('Tr0p1calSun');
   });
 });
 
 router.get('/', function(req, res) {
   gsheets.getLatestWifiPassword().then(function(value) {
-    res.json(value);
+    res.json('Tr0p1calSun');
   });
 });
 
