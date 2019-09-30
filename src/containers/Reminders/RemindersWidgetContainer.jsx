@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './Reminders.scss';
+import Widget from '../../components/Widget';
 
 class RemindersWidgetContainer extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class RemindersWidgetContainer extends Component {
     };
 
     this.getData = this.getData.bind(this);
+    this.displayToast = this.displayToast.bind(this);
   }
 
   componentDidMount() {
@@ -77,15 +79,34 @@ class RemindersWidgetContainer extends Component {
       marginLeft: '12%'
     };
     const { reminders } = this.state;
+    const renderedReminders = [];
+
+    const headingProps = {
+      headingTitle: 'Reminders',
+      headingTitleColor: '#43ab9b',
+      headingBackgroundColor: 'white'
+    };
+
     if (reminders.length !== 0) {
-      return (
-        <ToastContainer autoClose={false}>{this.displayToast()}</ToastContainer>
-      );
+      reminders.forEach(element => {
+        renderedReminders.push(<>
+          <Widget heading={headingProps} className="ReminderWidget">
+            {/* <div className="ReminderWidget"> */}
+             <h4>{element.heading}</h4>
+              <p>{element.content}</p>
+            {/* </div> */}
+          </Widget>
+        </>);
+      });
+
+      return renderedReminders;
     }
     return (
-      <div style={reminderGap}>
-        <h2>No Reminders at the moment..</h2>
-      </div>
+      <Widget heading={headingProps}>
+        <div className="ReminderWidget">
+          <h2>No Reminders at the moment..</h2>
+        </div>
+      </Widget>
     );
   }
 }
