@@ -90,11 +90,11 @@ class RemindersWidgetContainer extends Component {
     if (reminders.length !== 0) {
       reminders.forEach(element => {
         renderedReminders.push(<>
-          <Widget heading={headingProps} className="ReminderWidget">
-            {/* <div className="ReminderWidget"> */}
+          <Widget heading={headingProps}>
+            <div className="ReminderWidget">
              <h4>{element.heading}</h4>
               <p>{element.content}</p>
-            {/* </div> */}
+            </div>
           </Widget>
         </>);
       });
