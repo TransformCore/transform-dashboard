@@ -95,7 +95,7 @@ class Dashboard extends Component {
                   href={`${BASE_API_URL}/weather/current`}
                   city={currentCity}
                 />
-                <Birthdays href={`${BASE_API_URL}/birthdays/current`} />
+                {/* <Birthdays href={`${BASE_API_URL}/birthdays/current`} /> */}
               </Widget>
               <Widget>
                 <WifiPasswordContainer
