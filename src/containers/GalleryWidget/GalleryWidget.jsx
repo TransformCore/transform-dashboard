@@ -16,7 +16,6 @@ class GalleryWidget extends Component {
     };
 
     this.getData = this.getData.bind(this);
-    this.rotateCurrentImage = this.rotateCurrentImage.bind(this);
     this.getRandomImage = this.getRandomImage.bind(this);
   }
 
@@ -24,7 +23,6 @@ class GalleryWidget extends Component {
     this.getData();
 
     this.interval = setInterval(this.getData, tenMinutes());
-    // this.timer = setInterval(this.rotateCurrentImage, tenSeconds());
     this.timer = setInterval(this.getRandomImage, tenSeconds());
   }
 
@@ -32,25 +30,7 @@ class GalleryWidget extends Component {
     axios.get(this.props.api).then(images => {
       this.setState({ loading: false, images: images.data });
       // Force Rotate
-      // this.rotateCurrentImage();
       this.getRandomImage();
-    });
-  }
-
-  async rotateCurrentImage() {
-    const { images, currentImage } = this.state;
-
-    if (images.length) {
-      const currentIndex = images.indexOf(currentImage);
-
-      if (currentIndex === images.length - 1) {
-        // Reset to the first image
-        return this.setState({ currentImage: images[0] });
-      }
-      return this.setState({ currentImage: images[currentIndex + 1] });
-    }
-    return this.setState({
-      loading: true
     });
   }
 
