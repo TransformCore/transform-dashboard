@@ -45,7 +45,7 @@ class GalleryWidget extends Component {
 
     return this.setState({
       loading: true
-    })
+    });
   }
 
   render() {
