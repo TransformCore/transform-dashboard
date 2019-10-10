@@ -253,7 +253,7 @@ const retrieveAllBirthdays = async auth => {
         if (rows.length) {
           //filter to make sure that only people with consent to "Other communication"
           rows
-            .filter(row => row[4].toUpperCase() === 'YES')
+            .filter(row => (row[4]) && (row[4].toUpperCase() === 'YES'))
             .map(row => birthdays.push({ name: row[0], date: row[1] }));
         } else {
           console.log('No Birthdays found.');
