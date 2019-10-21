@@ -14,7 +14,6 @@ const Polaroid = ({ data }) => {
       <div className="polaroid-container">
         <div
           className="polaroid"
-          style={{ transform: `rotate(${rotation}deg)` }}
         >
           <img className="photo" src={data.photoUrl} alt="Lucky fellow" />
           <h4>{data.name}</h4>
@@ -24,7 +23,7 @@ const Polaroid = ({ data }) => {
   }
   return (
     <div className="polaroid-container">
-      <div className="polaroid" style={{ transform: `rotate(${rotation}deg)` }}>
+      <div className="polaroid">
         <img className="photo" src={defaultPhoto} alt="Lucky fellow" />
         <h4>{data.name}</h4>
       </div>
