@@ -16,10 +16,8 @@ class WifiPasswordContainer extends Component {
   }
 
   componentDidMount() {
-    // eslint-disable-next-line no-unused-vars
-    this.getData().then(_ => {
-      this.interval = setInterval(this.getData, 60000);
-    });
+    this.getData();
+    this.interval = setInterval(this.getData, 60000);
   }
 
   shouldComponentUpdate(_, nextState) {
