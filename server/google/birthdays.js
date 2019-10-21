@@ -69,7 +69,6 @@ router.get('/current', async (req, res) => {
           let isThisWeek = now.isoWeek() === input.isoWeek();
 
           if (isThisWeek === true) {
-            console.log(b)
             thisWeeksBirthdays.push({
               name: b.name,
               date: b.date,
