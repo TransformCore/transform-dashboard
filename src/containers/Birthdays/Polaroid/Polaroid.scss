@@ -19,6 +19,7 @@
 }
 
 .photo {
+  object-fit: cover;
   background-size: cover;
   background-position: center center;
   box-shadow: inset 0 0 50px rgba(99, 99, 80, 0.8);
