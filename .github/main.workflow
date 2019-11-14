@@ -33,7 +33,6 @@ action "Push" {
   env = {
     IMAGE = "445220836204.dkr.ecr.eu-west-1.amazonaws.com/etdashboard"
   }
-
 }
 
 action "Deploy to Fargate" {
