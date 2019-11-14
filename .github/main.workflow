@@ -33,5 +33,19 @@ action "Push" {
   env = {
     IMAGE = "445220836204.dkr.ecr.eu-west-1.amazonaws.com/etdashboard"
   }
+}
 
+action "Deploy to Fargate" {
+  uses = "jessfraz/aws-fargate-action@master"
+  needs = ["Push"]
+  env = {
+    AWS_REGION = "eu-west-1"
+    IMAGE = "445220836204.dkr.ecr.eu-west-1.amazonaws.com/etdashboard"
+    PORT = "8081"
+    COUNT = "2"
+    CPU = "256"
+    MEMORY = "512"
+    BUCKET = "et-dash-actions"
+  }
+  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
